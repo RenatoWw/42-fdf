@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:26:28 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/08/20 19:43:36 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/08/21 17:51:24 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,17 @@ typedef struct	s_data
 	int		endian;
 }		t_data;
 
+typedef struct	s_map
+{
+	int	width;
+	int	height;
+	int	**map;
+	
+}		t_map;
+
+# define WINDOW_WIDTH 1280
+# define WINDOW_HEIGHT 800
+
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -31,10 +42,7 @@ typedef struct	s_data
 # include "mlx/mlx.h"
 # include "libft/libft.h"
 # include "gnl/get_next_line.h"
-// # include "libft/libft.a"
 
-int	**map_parser(char *map_name);
-int	num_counter(char *line);
-int	line_counter(char *map_name);
+t_map	*map_parser(char *map_name);
 
 #endif

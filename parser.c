@@ -6,13 +6,13 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 14:04:31 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/08/20 21:28:18 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/08/21 16:07:44 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	num_counter(char *line)
+static int	num_counter(char *line)
 {
 	int	num_count;
 	int	i;
@@ -35,7 +35,7 @@ int	num_counter(char *line)
 	return (num_count);
 }
 
-int	line_counter(char *map_name)
+static int	line_counter(char *map_name)
 {
 	int		len;
 	int		fd;
@@ -45,8 +45,11 @@ int	line_counter(char *map_name)
 	if (!fd || !map_name)
 		return (0);
 	len = 0;
-	while ((line = get_next_line(fd)))
+	while (1)
 	{
+		line = get_next_line(fd);
+		if (!line)
+			break;
 		len++;
 		free(line);
 	}
@@ -54,42 +57,54 @@ int	line_counter(char *map_name)
 	return (len);
 }
 
-int	**map_parser(char *map_name)
+static void	copy_map(t_map *map, char **clean_line, int *i)
 {
-	int		**map;
+	int	j;
+
+	j = 0;
+	while (clean_line[j] != NULL)
+	{
+		map->map[*i][j] = ft_atoi(clean_line[j]);
+		j++;
+	}
+	j = 0;
+	while (clean_line[j] != NULL)
+		free(clean_line[j++]);
+	free(clean_line);
+}
+
+static void	cfree(int fd, char *line)
+{
+	line = get_next_line(fd);
+	free(line);
+	close(fd);
+}
+
+t_map	*map_parser(char *map_name)
+{
 	int		fd;
 	int		i;
-	int		j;
 	char	*line;
-	char	**clean_line;
+	t_map	*map;
 
-	// abrir o arquivo na main
 	fd = open(map_name, O_RDONLY);
 	if (!fd)
 		return (NULL);
-	map = malloc(line_counter(map_name) * sizeof(int *));
+	map = malloc(sizeof(t_map));
+	map->height = line_counter(map_name);
+	map->map = malloc(map->height * sizeof(int *));
 	i = 0;
-	while (i < line_counter(map_name))
+	while (i < map->height)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			break ;
-		map[i] = malloc(num_counter(line) * sizeof(int));
-		printf("num: %d str: %s", num_counter(line) ,line);
-		clean_line = ft_split(line, ' ');
-		j = 0;
-		while (clean_line[j] != NULL)
-		{
-			map[i][j] = ft_atoi(clean_line[j]);
-			j++;
-		}
-		i++;
-		j = 0;
-		while (clean_line[j] != NULL)
-			free(clean_line[j++]);
-		free(clean_line);
+			return (NULL);
+		map->width = num_counter(line);
+		map->map[i] = malloc(num_counter(line) * sizeof(int));
+		copy_map(map, ft_split(line, ' '), &i);
 		free(line);
+		i++;
 	}
-	close(fd);
+	cfree(fd, line);
 	return (map);
 }

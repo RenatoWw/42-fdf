@@ -1,7 +1,7 @@
 NAME = fdf
 CC = cc
 # compilação
-CFLAGS = -Wall -Wextra -Werror -Imlx
+CFLAGS = -Wall -Wextra -Werror -Imlx -D BUFFER_SIZE=1
 # linkagem
 LFLAGS = -lmlx -lXext -lX11 -lm -Llibft/ -lft
 LIBFT = libft/
