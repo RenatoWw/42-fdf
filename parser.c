@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 14:04:31 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/08/21 16:07:44 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:25:04 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int	line_counter(char *map_name)
 	if (!fd || !map_name)
 		return (0);
 	len = 0;
+	// só contar se for numero, diferente de espaço e \n
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -80,6 +81,7 @@ static void	cfree(int fd, char *line)
 	close(fd);
 }
 
+// parsear o mapa!!!
 t_map	*map_parser(char *map_name)
 {
 	int		fd;

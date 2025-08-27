@@ -9,6 +9,8 @@ LIBFT_A = libft/libft.a
 
 SRCS = fdf.c \
 	parser.c \
+	draw.c \
+	init.c \
 	gnl/get_next_line.c \
 	gnl/get_next_line_utils.c \
 
