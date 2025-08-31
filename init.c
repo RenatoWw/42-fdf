@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato <renato@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:57:22 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/08/27 20:26:48 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/08/31 04:12:47 by renato           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 void	init_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
-	data->window = mlx_new_window(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "42 sp");
+	data->window = mlx_new_window
+		(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "FDF");
 	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
+	data->addr = mlx_get_data_addr
+		(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
 }
 
 void	free_map(t_map *map)

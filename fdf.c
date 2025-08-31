@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato <renato@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:22:25 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/08/27 20:32:39 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/08/31 16:33:15 by renato           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,11 @@ int	main(void)
 {
 	int		x;
 	int		y;
-	int		color;
-	t_map		*map;
+	t_map	*map;
 	t_data	data;
 
 	init_mlx(&data);
-	color = 0x0000FFFF;
-	map = map_parser("test_maps/basictest.fdf");
+	map = map_parser("test_maps/42.fdf");
 	x = WINDOW_WIDTH / 4;
 	y = WINDOW_HEIGHT / 4;
 	draw_map(&data, map, x, y);

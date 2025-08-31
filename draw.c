@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato <renato@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:42:11 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/08/27 20:26:42 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/08/31 15:15:03 by renato           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,12 @@ void	draw_map(t_data *data, t_map *map, int x, int y)
 	int	j;
 
 	i = 0;
-	printf("%d %d", map->height, map->width);
 	while (i < map->height)
 	{
 		j = 0;
 		while (j < map->width)
 		{
-			ft_pixel_put(data, x, y, 0x00FFFFFF);
+			ft_pixel_put(data, x, y, 0x000000FF);
 			draw_line(data, x, y, x + 50, y);
 			draw_line(data, x, y, x, y + 50);
 			if ((j + 1) == map->width)
