@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renato <renato@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:22:25 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/08/31 16:33:15 by renato           ###   ########.fr       */
+/*   Updated: 2025/09/01 18:13:17 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,40 @@ int	key_handler(int keycode, t_data *data)
 // offset and zoom
 // normalizar o mapa
 
-int	main(void)
+int	validation(int argc, int fd)
+{
+	if (argc != 2)
+	{
+		write(1, "Wrong number of arguments\n", 26);
+		return (1);
+	}
+	if (fd < 0)
+	{
+		write(1, "Map not found\n", 14);
+		return (1);
+	}
+	return (0);
+}
+
+int	main(int argc, char *argv[])
 {
 	int		x;
 	int		y;
+	int		fd;
 	t_map	*map;
 	t_data	data;
 
+	fd = open(argv[1], O_RDONLY);
+	if (validation(argc, fd) == 1)
+		exit(0);
+	map = map_parser(argv[1], fd);
+	if (!map)
+		return (1);
 	init_mlx(&data);
-	map = map_parser("test_maps/42.fdf");
 	x = WINDOW_WIDTH / 4;
 	y = WINDOW_HEIGHT / 4;
 	draw_map(&data, map, x, y);
-	free_map(map);
+	free_map(map, map->height);
 	mlx_key_hook(data.window, &key_handler, &data);
 	mlx_loop(data.mlx);
 

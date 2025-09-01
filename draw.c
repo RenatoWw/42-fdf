@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renato <renato@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:42:11 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/08/31 15:15:03 by renato           ###   ########.fr       */
+/*   Updated: 2025/09/01 15:26:01 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,16 @@ void	ft_pixel_put(t_data *data, int x, int y, int color)
 
 	if (x >= 0 && x < WINDOW_WIDTH && y >= 0 && y < WINDOW_HEIGHT)
 	{
-		dest = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+		dest = data->addr + (y * data->line_length + x
+				* (data->bits_per_pixel / 8));
 		*(unsigned int *)dest = color;
 	}
 }
 
 void	draw_line(t_data *data, int x1, int y1, int x2, int y2)
 {
-	int	i;
-	int	step;
+	int		i;
+	int		step;
 	float	x;
 	float	y;
 
@@ -45,6 +46,7 @@ void	draw_line(t_data *data, int x1, int y1, int x2, int y2)
 		i++;
 	}
 }
+
 // substituir o x e o y pelo struct s_point?
 void	draw_map(t_data *data, t_map *map, int x, int y)
 {

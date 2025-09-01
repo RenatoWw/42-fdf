@@ -1,13 +1,14 @@
 NAME = fdf
 CC = cc
 # compilação
-CFLAGS = -Wall -Wextra -Werror -Imlx -D BUFFER_SIZE=1
+CFLAGS = -Wall -Werror -Wextra -Imlx -D BUFFER_SIZE=1
 # linkagem
 LFLAGS = -lmlx -lXext -lX11 -lm -Llibft/ -Lmlx -lft -lbsd
 LIBFT = libft/
 LIBFT_A = libft/libft.a
 
 SRCS = fdf.c \
+	free.c \
 	parser.c \
 	draw.c \
 	init.c \
