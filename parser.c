@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 14:04:31 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/01 20:58:03 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:56:10 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,26 +74,43 @@ int	line_counter(char *map_name)
 	return (len);
 }
 
+// passar int *map e preencher a linha
+// na map parser passar map[i]
+// alocar primeiro e depois preencher o array
+// criar uma função pra alocar e depois outra para preencher
+
 static int	copy_map(t_map *map, char **clean_line, int *i)
 {
 	int			j;
-	static int	old_j = 0;
+	// static int	old_j = 0;
 
 	j = 0;
 	while (clean_line[j] != NULL)
 	{
 		map->map[*i][j] = ft_atoi(clean_line[j]);
+		// printf("clean_line: %s\n", clean_line[j]);
+		// printf("j: %d\n", j);
+		
 		j++;
 	}
-	if (*i > 0 && j != old_j)
-	{
-		j = 0;
-		while (clean_line[j] != NULL)
-			free(clean_line[j++]);
-		free(clean_line);
-		return (1);
-	}
-	old_j = j;
+	// if (j > map->width + 1)
+	// {
+	// 	printf("error\n");
+	// 	exit(0);
+	// }
+	// printf("old_j: %d\n", old_j);
+	// if (*i > 0 && j != old_j)
+	// {
+	// 	j = 0;
+	// 	while (clean_line[j] != NULL)
+	// 	{
+	// 		free(clean_line[j]);
+	// 		j++;
+	// 	}
+	// 	free(clean_line);
+	// 	return (1);
+	// }
+	// old_j = j;
 	j = 0;
 	while (clean_line[j] != NULL)
 		free(clean_line[j++]);
@@ -117,7 +134,8 @@ t_map	*map_parser(char *map_name, int fd)
 		if (!line)
 			return (free_map(map, i));
 		map->width = num_counter(line);
-		map->map[i] = malloc(num_counter(line) * sizeof(int));
+		printf("map: %d\n", map->width);
+		map->map[i] = malloc(map->width * sizeof(int));
 		if (copy_map(map, ft_split(line, ' '), &i) == 1)
 		{
 			cfree(fd, line);
