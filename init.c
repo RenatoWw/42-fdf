@@ -6,14 +6,12 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:57:22 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/01 17:23:54 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/01 20:57:58 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// retornar um int, caso algo de erro retornar 1, caso não, retornar zero
-// ai eu faço um if na main com essa verificação
 void	init_mlx(t_data *data)
 {
 	data->mlx = mlx_init();

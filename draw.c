@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:42:11 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/01 15:26:01 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/01 21:11:58 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,53 +24,92 @@ void	ft_pixel_put(t_data *data, int x, int y, int color)
 	}
 }
 
-void	draw_line(t_data *data, int x1, int y1, int x2, int y2)
+void	draw_line(t_data *data, t_point p1, t_point p2, int color)
 {
 	int		i;
 	int		step;
 	float	x;
 	float	y;
 
-	if (abs(x2 - x1) >= abs(y2 - y1))
-		step = abs(x2 - x1);
+	if (abs(p2.x - p1.x) >= abs(p2.y - p1.y))
+		step = abs(p2.x - p1.x);
 	else
-		step = abs(y2 - y1);
-	x = x1;
-	y = y1;
+		step = abs(p2.y - p1.y);
+	x = p1.x;
+	y = p1.y;
 	i = 0;
 	while (i <= step)
 	{
-		ft_pixel_put(data, round(x), round(y), 0x0000FFFF);
-		x += (x2 - x1) / (float)step;
-		y += (y2 - y1) / (float)step;
+		ft_pixel_put(data, round(x), round(y), color);
+		x += (p2.x - p1.x) / (float)step;
+		y += (p2.y - p1.y) / (float)step;
 		i++;
 	}
 }
 
-// substituir o x e o y pelo struct s_point?
+// fórmula isométrica
+// screen_x = (x - y) * cos(ângulo)
+// screen_y = (x + y) * sin(ângulo) - z
+// offset and zoom
+// normalizar o mapa
+
+void	isometric_projection(int *x, int *y, int z)
+{
+	int	tmp;
+
+	tmp = *x;
+	*x = (tmp - *y) * cos(0.523599);
+	*y = (tmp + *y) * sin(0.523599) - z;
+}
+
 void	draw_map(t_data *data, t_map *map, int x, int y)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	int		color;
+	t_point	first_line;
+	t_point	second_line;
 
+	color = 0x000000FF;
 	i = 0;
 	while (i < map->height)
 	{
 		j = 0;
 		while (j < map->width)
 		{
-			ft_pixel_put(data, x, y, 0x000000FF);
-			draw_line(data, x, y, x + 50, y);
-			draw_line(data, x, y, x, y + 50);
-			if ((j + 1) == map->width)
-				draw_line(data, x + 50, y, x + 50, y + 50);
-			if ((i + 1) == map->height)
-				draw_line(data, x, y + 50, x + 50, y + 50);
+			first_line.x = x;
+			first_line.y = y;
+			second_line.x = x + 50;
+			second_line.y = y;
+			isometric_projection(&first_line.x, &first_line.y, map->map[i][j]);
+			isometric_projection(&second_line.x, &second_line.y, map->map[i][j]);
+			draw_line(data, first_line, second_line, color);
+			// second_line.x = x;
+			second_line.y = y + 50;
+			isometric_projection(&first_line.x, &first_line.y, map->map[i][j]);
+			isometric_projection(&second_line.x, &second_line.y, map->map[i][j]);
+			draw_line(data, first_line, second_line, color);
+			// if ((i + 1) == map->height)
+			// {
+			// 	first_line.x = x;
+			// 	first_line.y = y + 50;
+			// 	second_line.x = x + 50;
+			// 	second_line.y = y + 50;
+			// 	draw_line(data, first_line, second_line, color);
+			// }
+			// if ((j + 1) == map->width)
+			// {
+			// 	first_line.x = x + 50;
+			// 	first_line.y = y;
+			// 	second_line.x = x + 50;
+			// 	second_line.y = y + 50;
+			// 	draw_line(data, first_line, second_line, color);
+			// }
 			x += 50;
 			j++;
 		}
 		y = y + 50;
-		x = WINDOW_WIDTH / 4;
+		x = WINDOW_WIDTH / 8;
 		i++;
 	}
 	mlx_put_image_to_window(data->mlx, data->window, data->img, 0, 0);

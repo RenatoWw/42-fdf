@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:22:25 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/01 18:13:17 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/01 21:07:36 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,6 @@ int	key_handler(int keycode, t_data *data)
 		write(1, "Tecla pressionada\n", 18);
 	return (0);
 }
-
-// fórmula isométrica
-// screen_x = (x - y) * cos(ângulo)
-// screen_y = (x + y) * sin(ângulo) - z
-
-// function to parse if map is not an rectangle and if it's empty
-// parse spaces in final of the function
-// parse invalid characters
-// parse if line is empty
-// parse still reachable bytes
-// offset and zoom
-// normalizar o mapa
 
 int	validation(int argc, int fd)
 {
@@ -70,12 +58,11 @@ int	main(int argc, char *argv[])
 	if (!map)
 		return (1);
 	init_mlx(&data);
-	x = WINDOW_WIDTH / 4;
-	y = WINDOW_HEIGHT / 4;
+	x = WINDOW_WIDTH / 8;
+	y = WINDOW_HEIGHT / 8;
 	draw_map(&data, map, x, y);
 	free_map(map, map->height);
 	mlx_key_hook(data.window, &key_handler, &data);
 	mlx_loop(data.mlx);
-
 	return (0);
 }

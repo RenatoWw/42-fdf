@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:26:28 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/01 18:08:21 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/01 18:54:23 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_point
 
 t_map	*map_parser(char *map_name, int fd);
 void	draw_map(t_data *data, t_map *map, int x, int y);
-void	draw_line(t_data *data, int x1, int y1, int x2, int y2);
+void	draw_line(t_data *data, t_point p1, t_point p2, int color);
 void	ft_pixel_put(t_data *data, int x, int y, int color);
 void	*free_map(t_map *map, int len);
 void	init_mlx(t_data *data);

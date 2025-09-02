@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 14:04:31 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/01 18:11:52 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/01 20:58:03 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ static int	copy_map(t_map *map, char **clean_line, int *i)
 	return (0);
 }
 
-// parsear o mapa!!!
 t_map	*map_parser(char *map_name, int fd)
 {
 	int		i;
