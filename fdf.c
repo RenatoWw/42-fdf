@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:22:25 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/01 21:07:36 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/02 14:11:40 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int	main(int argc, char *argv[])
 	if (!map)
 		return (1);
 	init_mlx(&data);
-	x = WINDOW_WIDTH / 8;
-	y = WINDOW_HEIGHT / 8;
+	x = WINDOW_WIDTH / 4;
+	y = WINDOW_HEIGHT / 4;
 	draw_map(&data, map, x, y);
 	free_map(map, map->height);
 	mlx_key_hook(data.window, &key_handler, &data);
