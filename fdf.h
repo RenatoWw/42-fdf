@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:26:28 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/02 17:44:40 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/04 20:06:43 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <math.h>
-# include "mlx/mlx.h"
-# include "libft/libft.h"
-# include "gnl/get_next_line.h"
+# include "includes/mlx/mlx.h"
+# include "includes/libft/libft.h"
+# include "includes/gnl/get_next_line.h"
 
 typedef struct s_data
 {
@@ -50,15 +50,18 @@ typedef struct s_point
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 800
 
-t_map	*map_parser(char *map_name, int fd);
+t_map	*allocate_map(char *map_name);
 void	draw_map(t_data *data, t_map *map, int x, int y);
 void	draw_line(t_data *data, t_point p1, t_point p2, int color);
 void	ft_pixel_put(t_data *data, int x, int y, int color);
 void	*free_map(t_map *map, int len);
 void	init_mlx(t_data *data);
 void	handle_error(int fd, char *line, t_map *map, int i);
+void	*map_filler(t_map *map, int fd);
+void	free_split(char **line);
 int		num_counter(char *line);
 int		line_counter(char *map_name);
 int		create_trgb(int t, int r, int g, int b);
+int		validate_map(char *map_name);
 
 #endif

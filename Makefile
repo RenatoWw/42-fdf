@@ -3,18 +3,20 @@ CC = cc
 # compilação
 CFLAGS = -Wall -Werror -Wextra -Imlx -D BUFFER_SIZE=1000
 # linkagem
-LFLAGS = -lmlx -lXext -lX11 -lm -Llibft/ -Lmlx -lft -lbsd
-LIBFT = libft/
-LIBFT_A = libft/libft.a
+LFLAGS = -lmlx -lXext -lX11 -lm -Lincludes/libft/ -Lmlx -lft -lbsd
+LIBFT = includes/libft/
+LIBFT_A = includes/libft/libft.a
 
 SRCS = fdf.c \
 	free.c \
-	parser.c \
+	mapper/map_parser.c \
+	mapper/map_allocator.c \
+	mapper/map_filler.c \
 	draw.c \
 	init.c \
 	colors.c \
-	gnl/get_next_line.c \
-	gnl/get_next_line_utils.c \
+	includes/gnl/get_next_line.c \
+	includes/gnl/get_next_line_utils.c \
 
 
 OBJS = $(SRCS:.c=.o)

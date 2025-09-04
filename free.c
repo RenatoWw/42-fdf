@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 17:23:46 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/01 18:09:14 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/04 20:06:35 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,14 @@ void	handle_error(int fd, char *line, t_map *map, int i)
 		free(line);
 	}
 	exit(0);
+}
+
+void	free_split(char **line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != NULL)
+		free(line[i++]);
+	free(line);
 }
