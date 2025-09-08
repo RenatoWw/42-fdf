@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato <renato@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:22:25 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/04 20:10:12 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/06 19:11:57 by renato           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,14 @@ void	print_map(t_map *map)
 	}
 }
 
-// validate height and width
-// if ok, alloc the map
-// fill the map after allocating
-
 int	main(int argc, char *argv[])
 {
-	int		fd;
 	t_map	*map;
+	t_data	data;
+	int		fd;
 	int		x;
 	int		y;
 	int		color;
-	t_data	data;
 
 	fd = open(argv[1], O_RDONLY);
 	fd_validate(argc, fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato <renato@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:26:28 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/04 20:06:43 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/08 18:31:49 by renato           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ typedef struct s_data
 
 typedef struct s_map
 {
-	int	width;
-	int	height;
-	int	**map;
+	int		width;
+	int		height;
+	int		**map;
+	float	z_min;
+	float	z_max;
 
 }		t_map;
 

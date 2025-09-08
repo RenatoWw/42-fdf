@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato <renato@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:38:27 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/04 20:40:59 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/06 19:06:32 by renato           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	line_counter(char *map_name)
 		free(line);
 	}
 	close(fd);
+	if (len == 0)
+		exit(1);
 	return (len);
 }
 

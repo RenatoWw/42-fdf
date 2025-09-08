@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato <renato@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:42:11 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/03 17:38:49 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/08 18:37:03 by renato           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,43 @@ void	draw_line(t_data *data, t_point p1, t_point p2, int color)
 	}
 }
 
-// fórmula isométrica
-// screen_x = (x - y) * cos(ângulo)
-// screen_y = (x + y) * sin(ângulo) - z
-// offset and zoom
-// normalizar o mapa
-
-void	isometric_projection(int *x, int *y, int z)
+void	determine_z_values(t_map *map)
 {
-	int	tmp;
-	int	offset_z;
+	int	i;
+	int	j;
 
-	tmp = *x;
-	offset_z = z * 20;
-	*x = (tmp - *y) * cos(0.523599);
-	*y = (tmp + *y) * sin(0.523599) - offset_z;
+	i = 0;
+	map->z_min = map->map[0][0];
+	map->z_max = map->map[0][0];
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->width)
+		{
+			if (map->map[i][j] > map->z_max)
+				map->z_max = map->map[i][j];
+			if (map->map[i][j] < map->z_min)
+				map->z_min = map->map[i][j];
+			j++;
+		}
+		i++;
+	}
 }
 
-// arrumar com numeros negativos
-// basic test nao ta funcionando
+void	isometric_projection(int *x, int *y, int z, t_map *map)
+{
+	int		tmp;
+	float	final_z;
+
+	final_z = ((float)z - map->z_min) / (map->z_max - map->z_min);
+	// printf("z: %f\n", final_z);
+	tmp = *x;
+	*x = (tmp - *y) * cos(0.523599);
+	*y = (tmp + *y) * sin(0.523599) - final_z * 100;
+}
+
+// arrumar z_scale e ajustar as cores
+// guardar em um array de cores diferente?
 
 void	draw_map(t_data *data, t_map *map, int offset_x, int offset_y)
 {
@@ -79,6 +97,7 @@ void	draw_map(t_data *data, t_map *map, int offset_x, int offset_y)
 	t_point	second_point;
 	t_point	third_point;
 
+	determine_z_values(map);
 	color = 0x000000FF;
 	zoom_x = WINDOW_WIDTH / map->width;
 	zoom_y = WINDOW_HEIGHT / map->height;
@@ -96,14 +115,14 @@ void	draw_map(t_data *data, t_map *map, int offset_x, int offset_y)
 		{
 			first_point.x = j * (zoom * 0.5);
 			first_point.y = i * (zoom * 0.5);
-			isometric_projection(&first_point.x, &first_point.y, map->map[i][j]);
+			isometric_projection(&first_point.x, &first_point.y, map->map[i][j], map);
 			first_point.x += offset_x;
 			first_point.y += offset_y;
 			if ((j + 1) != map->width)
 			{
 				second_point.x = (j + 1) * (zoom * 0.5);
 				second_point.y = i * (zoom * 0.5);
-				isometric_projection(&second_point.x, &second_point.y, map->map[i][j + 1]);
+				isometric_projection(&second_point.x, &second_point.y, map->map[i][j + 1], map);
 				second_point.x += offset_x;
 				second_point.y += offset_y;
 				draw_line(data, first_point, second_point, color);
@@ -112,7 +131,7 @@ void	draw_map(t_data *data, t_map *map, int offset_x, int offset_y)
 			{
 				third_point.x = j * (zoom * 0.5);
 				third_point.y = (i + 1) * (zoom * 0.5);
-				isometric_projection(&third_point.x, &third_point.y, map->map[i + 1][j]);
+				isometric_projection(&third_point.x, &third_point.y, map->map[i + 1][j], map);
 				third_point.x += offset_x;
 				third_point.y += offset_y;
 				draw_line(data, first_point, third_point, color);

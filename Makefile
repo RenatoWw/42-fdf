@@ -9,9 +9,9 @@ LIBFT_A = includes/libft/libft.a
 
 SRCS = fdf.c \
 	free.c \
-	mapper/map_parser.c \
-	mapper/map_allocator.c \
-	mapper/map_filler.c \
+	map_functions/map_parser.c \
+	map_functions/map_allocator.c \
+	map_functions/map_filler.c \
 	draw.c \
 	init.c \
 	colors.c \
