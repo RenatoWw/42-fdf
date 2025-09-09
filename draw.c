@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renato <renato@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:42:11 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/08 18:37:03 by renato           ###   ########.fr       */
+/*   Updated: 2025/09/09 20:30:35 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,9 @@ void	isometric_projection(int *x, int *y, int z, t_map *map)
 	float	final_z;
 
 	final_z = ((float)z - map->z_min) / (map->z_max - map->z_min);
-	// printf("z: %f\n", final_z);
 	tmp = *x;
 	*x = (tmp - *y) * cos(0.523599);
-	*y = (tmp + *y) * sin(0.523599) - final_z * 100;
+	*y = (tmp + *y) * sin(0.523599) - final_z * 150;
 }
 
 // arrumar z_scale e ajustar as cores
@@ -107,7 +106,6 @@ void	draw_map(t_data *data, t_map *map, int offset_x, int offset_y)
 	offset_x = (WINDOW_WIDTH - (map->width * (zoom * 0.3))) / 2;
 	offset_y = (WINDOW_HEIGHT - (map->height * (zoom * 0.5))) / 2;
 	i = 0;
-	printf("zoom_x: %d\nzoom_y: %d\n", zoom_x, zoom_y);
 	while (i < map->height)
 	{
 		j = 0;
@@ -141,4 +139,5 @@ void	draw_map(t_data *data, t_map *map, int offset_x, int offset_y)
 		i++;
 	}
 	mlx_put_image_to_window(data->mlx, data->window, data->img, 0, 0);
+	free_map(map, map->height);
 }

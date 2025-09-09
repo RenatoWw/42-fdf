@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renato <renato@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:22:25 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/06 19:11:57 by renato           ###   ########.fr       */
+/*   Updated: 2025/09/09 20:29:53 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	key_handler(int keycode, t_data *data)
 		mlx_destroy_image(data->mlx, data->img);
 		mlx_destroy_window(data->mlx, data->window);
 		mlx_destroy_display(data->mlx);
-		free(data->mlx);
+		if (data->mlx != NULL)
+			free(data->mlx);
 		exit(0);
 	}
 	if (keycode == 65361)
@@ -67,7 +68,7 @@ void	print_map(t_map *map)
 		j = 0;
 		while (j < map->width)
 		{
-			printf("%d ", map->map[i][j]);
+			printf("%d ", map->colors[i][j]);
 			j++;
 		}
 		printf("\n");
@@ -77,12 +78,11 @@ void	print_map(t_map *map)
 
 int	main(int argc, char *argv[])
 {
-	t_map	*map;
 	t_data	data;
+	t_map	*map;
 	int		fd;
 	int		x;
 	int		y;
-	int		color;
 
 	fd = open(argv[1], O_RDONLY);
 	fd_validate(argc, fd);
@@ -93,14 +93,14 @@ int	main(int argc, char *argv[])
 	map_filler(map, fd);
 	if (!map)
 		return (1);
+	// map->colors[0][0] = 16;
+	// fill_colors(map, argv[1]);
+	// printf("\n%d\n", map->colors[5][2]);
 	// print_map(map);
 	init_mlx(&data);
 	x = WINDOW_WIDTH / 4;
 	y = WINDOW_HEIGHT / 4;
-	color = create_trgb(1, 255, 50, 20);
-	printf("\ncolor: %d\n", color);
 	draw_map(&data, map, x, y);
-	free_map(map, map->height);
 	mlx_key_hook(data.window, &key_handler, &data);
 	mlx_loop(data.mlx);
 	close(fd);

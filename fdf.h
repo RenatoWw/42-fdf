@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renato <renato@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:26:28 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/08 18:31:49 by renato           ###   ########.fr       */
+/*   Updated: 2025/09/09 20:29:41 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_map
 	int		width;
 	int		height;
 	int		**map;
+	int		**colors;
 	float	z_min;
 	float	z_max;
 
@@ -53,6 +54,8 @@ typedef struct s_point
 # define WINDOW_HEIGHT 800
 
 t_map	*allocate_map(char *map_name);
+void	allocate_colors(t_map *map);
+void	fill_colors(t_map *map, char *map_name);
 void	draw_map(t_data *data, t_map *map, int x, int y);
 void	draw_line(t_data *data, t_point p1, t_point p2, int color);
 void	ft_pixel_put(t_data *data, int x, int y, int color);

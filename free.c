@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 17:23:46 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/04 20:06:35 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:57:05 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@ void	*free_map(t_map *map, int len)
 {
 	int	i;
 
+	len++;
 	i = 0;
 	while (i < len)
+		free(map->colors[i++]);
+	free(map->colors);
+	i = 0;
+	while (map->map[i])
 		free(map->map[i++]);
 	free(map->map);
 	free(map);

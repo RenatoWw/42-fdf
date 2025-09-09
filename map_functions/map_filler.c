@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_filler.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renato <renato@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 19:14:00 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/06 19:11:25 by renato           ###   ########.fr       */
+/*   Updated: 2025/09/09 18:04:08 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	fill_line(int *map, char **line)
 		map[i] = ft_atoi(line[i]);
 		i++;
 	}
-	i = 0;
 	free_split(line);
 }
 
@@ -44,7 +43,7 @@ void	*map_filler(t_map *map, int fd)
 	int		i;
 
 	i = 0;
-	while (i < map->height)
+	while (map->map[i])
 	{
 		line = get_next_line(fd);
 		if (!line)
