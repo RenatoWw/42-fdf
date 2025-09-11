@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:42:11 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/09 20:30:35 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/11 02:54:05 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	draw_map(t_data *data, t_map *map, int offset_x, int offset_y)
 	t_point	third_point;
 
 	determine_z_values(map);
-	color = 0x000000FF;
+	color = 0x0000FF;
 	zoom_x = WINDOW_WIDTH / map->width;
 	zoom_y = WINDOW_HEIGHT / map->height;
 	zoom = zoom_x;

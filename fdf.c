@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:22:25 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/09 20:29:53 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/11 02:44:31 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,19 @@ int	main(int argc, char *argv[])
 	fd = open(argv[1], O_RDONLY);
 	fd_validate(argc, fd);
 	validate_map(argv[1]);
+	x = WINDOW_WIDTH / 4;
+	y = WINDOW_HEIGHT / 4;
 	map = allocate_map(argv[1]);
 	if (!map)
 		return (1);
 	map_filler(map, fd);
 	if (!map)
 		return (1);
-	// map->colors[0][0] = 16;
-	// fill_colors(map, argv[1]);
+	color_filler(map, argv[1]);
+	// printf("%d", 0x00FF00FF);
 	// printf("\n%d\n", map->colors[5][2]);
-	// print_map(map);
+	print_map(map);
 	init_mlx(&data);
-	x = WINDOW_WIDTH / 4;
-	y = WINDOW_HEIGHT / 4;
 	draw_map(&data, map, x, y);
 	mlx_key_hook(data.window, &key_handler, &data);
 	mlx_loop(data.mlx);

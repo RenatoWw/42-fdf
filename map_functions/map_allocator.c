@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:35:50 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/09 18:01:46 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/11 02:43:10 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ t_map	*allocate_map(char *map_name)
 	int		i;
 
 	fd = open(map_name, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
 	map = ft_calloc(1, sizeof(t_map));
 	map->height = line_counter(map_name);
 	map->map = ft_calloc((map->height + 1), sizeof(int *));
