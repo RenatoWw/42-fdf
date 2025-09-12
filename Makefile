@@ -1,7 +1,7 @@
 NAME = fdf
 CC = cc
 # compilação
-CFLAGS = -Wall -Wextra -Imlx -D BUFFER_SIZE=1000
+CFLAGS = -Wall -Werror -Wextra -Imlx -D BUFFER_SIZE=1000
 # linkagem
 LFLAGS = -lmlx -lXext -lX11 -lm -Lincludes/libft/ -Lmlx -lft -lbsd
 LIBFT = includes/libft/
@@ -13,6 +13,7 @@ SRCS = fdf.c \
 	map_functions/map_allocator.c \
 	map_functions/map_filler.c \
 	draw.c \
+	draw_utils.c \
 	init.c \
 	colors.c \
 	includes/gnl/get_next_line.c \

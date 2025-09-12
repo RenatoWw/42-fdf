@@ -6,20 +6,31 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:42:31 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/11 02:46:16 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/12 15:29:39 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// int	create_trgb(int t, int r, int g, int b)
-// {
-// 	return (t << 24 | r << 16 | g << 8 | b);
-// }
-
 int	ft_atoi_hex(char *str)
 {
-	
+	int	num;
+	int	i;
+
+	num = 0;
+	i = 0;
+	while (str[i])
+	{
+		num *= 16;
+		if (str[i] >= '0' && str[i] <= '9')
+			num += str[i] - '0';
+		else if (str[i] >= 'A' && str[i] <= 'F')
+			num += str[i] - 'A' + 10;
+		else if (str[i] >= 'a' && str[i] <= 'f')
+			num += str[i] - 'a' + 10;
+		i++;
+	}
+	return (num);
 }
 
 void	allocate_colors(t_map *map)
@@ -38,7 +49,7 @@ void	allocate_colors(t_map *map)
 		j = 0;
 		while (j < map->width)
 		{
-			map->colors[i][j] = 0xFFFF00;
+			map->colors[i][j] = 0x0000FF;
 			j++;
 		}
 		i++;
@@ -61,7 +72,7 @@ void	fill_color_line(int *color_array, char **newline)
 			if (newline[i][j - 1] == ',' && newline[i][j])
 			{
 				str = ft_substr(newline[i], j, ft_strlen(newline[i]));
-				printf("%s\n", str);
+				color_array[i] = ft_atoi_hex(str);
 				free(str);
 			}
 		}
@@ -91,8 +102,8 @@ void	*color_filler(t_map *map, char *map_name)
 		free(newline);
 		i++;
 	}
-	// free_gnl
 	line = get_next_line(fd);
 	free(line);
+	close(fd);
 	return (0);
 }

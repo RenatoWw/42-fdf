@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:26:28 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/11 02:36:50 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/12 14:55:06 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	init_mlx(t_data *data);
 void	handle_error(int fd, char *line, t_map *map, int i);
 void	*map_filler(t_map *map, int fd);
 void	free_split(char **line);
+void	determine_z_values(t_map *map);
 int		num_counter(char *line);
 int		line_counter(char *map_name);
-int		create_trgb(int t, int r, int g, int b);
 int		validate_map(char *map_name);
 
 #endif

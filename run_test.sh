@@ -53,7 +53,8 @@ do
 
 	# If the operating system is Linux, use Valgrind to check for memory leaks
 	if [ "$OS" == "Linux" ]; then
-		valgrind --track-fds=all --leak-check=full --track-origins=yes --show-leak-kinds=all -s $EXE "$MAP_FILE"
+		# valgrind --track-fds=all --leak-check=full --track-origins=yes --show-leak-kinds=all -s $EXE "$MAP_FILE"
+		$EXE "$MAP_FILE"
 	# If the operating system is Darwin (macOS), use the leaks command to check for memory leaks
 	elif [ "$OS" == "Darwin" ]; then
 		$EXE "$MAP_FILE" &

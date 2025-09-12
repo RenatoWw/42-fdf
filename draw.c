@@ -6,46 +6,11 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:42:11 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/11 02:54:05 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/12 15:32:55 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	ft_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dest;
-
-	if (x >= 0 && x < WINDOW_WIDTH && y >= 0 && y < WINDOW_HEIGHT)
-	{
-		dest = data->addr + (y * data->line_length + x
-				* (data->bits_per_pixel / 8));
-		*(unsigned int *)dest = color;
-	}
-}
-
-void	draw_line(t_data *data, t_point p1, t_point p2, int color)
-{
-	int		i;
-	int		step;
-	float	x;
-	float	y;
-
-	if (abs(p2.x - p1.x) >= abs(p2.y - p1.y))
-		step = abs(p2.x - p1.x);
-	else
-		step = abs(p2.y - p1.y);
-	x = p1.x;
-	y = p1.y;
-	i = 0;
-	while (i <= step)
-	{
-		ft_pixel_put(data, round(x), round(y), color);
-		x += (p2.x - p1.x) / (float)step;
-		y += (p2.y - p1.y) / (float)step;
-		i++;
-	}
-}
 
 void	determine_z_values(t_map *map)
 {
@@ -76,33 +41,29 @@ void	isometric_projection(int *x, int *y, int z, t_map *map)
 	float	final_z;
 
 	final_z = ((float)z - map->z_min) / (map->z_max - map->z_min);
+	if (map->z_max <= 0)
+		final_z = z;
+	else if (map->z_max <= 10 && map->z_max > 0)
+		final_z *= 150;
+	else
+		final_z *= 100;
 	tmp = *x;
 	*x = (tmp - *y) * cos(0.523599);
-	*y = (tmp + *y) * sin(0.523599) - final_z * 150;
+	*y = (tmp + *y) * sin(0.523599) - final_z;
 }
-
-// arrumar z_scale e ajustar as cores
-// guardar em um array de cores diferente?
 
 void	draw_map(t_data *data, t_map *map, int offset_x, int offset_y)
 {
 	int		i;
 	int		j;
-	int		zoom_x;
-	int		zoom_y;
 	int		zoom;
-	int		color;
-	t_point	first_point;
-	t_point	second_point;
-	t_point	third_point;
+	t_point	p1;
+	t_point	p2;
 
 	determine_z_values(map);
-	color = 0x0000FF;
-	zoom_x = WINDOW_WIDTH / map->width;
-	zoom_y = WINDOW_HEIGHT / map->height;
-	zoom = zoom_x;
-	if (zoom_x > zoom_y)
-		zoom = zoom_y;
+	zoom = WINDOW_WIDTH / map->width;
+	if ((WINDOW_WIDTH / map->width) > (WINDOW_HEIGHT / map->height))
+		zoom = WINDOW_HEIGHT / map->height;
 	offset_x = (WINDOW_WIDTH - (map->width * (zoom * 0.3))) / 2;
 	offset_y = (WINDOW_HEIGHT - (map->height * (zoom * 0.5))) / 2;
 	i = 0;
@@ -111,28 +72,28 @@ void	draw_map(t_data *data, t_map *map, int offset_x, int offset_y)
 		j = 0;
 		while (j < map->width)
 		{
-			first_point.x = j * (zoom * 0.5);
-			first_point.y = i * (zoom * 0.5);
-			isometric_projection(&first_point.x, &first_point.y, map->map[i][j], map);
-			first_point.x += offset_x;
-			first_point.y += offset_y;
+			p1.x = j * (zoom * 0.5);
+			p1.y = i * (zoom * 0.5);
+			isometric_projection(&p1.x, &p1.y, map->map[i][j], map);
+			p1.x += offset_x;
+			p1.y += offset_y;
 			if ((j + 1) != map->width)
 			{
-				second_point.x = (j + 1) * (zoom * 0.5);
-				second_point.y = i * (zoom * 0.5);
-				isometric_projection(&second_point.x, &second_point.y, map->map[i][j + 1], map);
-				second_point.x += offset_x;
-				second_point.y += offset_y;
-				draw_line(data, first_point, second_point, color);
+				p2.x = (j + 1) * (zoom * 0.5);
+				p2.y = i * (zoom * 0.5);
+				isometric_projection(&p2.x, &p2.y, map->map[i][j + 1], map);
+				p2.x += offset_x;
+				p2.y += offset_y;
+				draw_line(data, p1, p2, map->colors[i][j]);
 			}
 			if ((i + 1) != map->height)
 			{
-				third_point.x = j * (zoom * 0.5);
-				third_point.y = (i + 1) * (zoom * 0.5);
-				isometric_projection(&third_point.x, &third_point.y, map->map[i + 1][j], map);
-				third_point.x += offset_x;
-				third_point.y += offset_y;
-				draw_line(data, first_point, third_point, color);
+				p2.x = j * (zoom * 0.5);
+				p2.y = (i + 1) * (zoom * 0.5);
+				isometric_projection(&p2.x, &p2.y, map->map[i + 1][j], map);
+				p2.x += offset_x;
+				p2.y += offset_y;
+				draw_line(data, p1, p2, map->colors[i][j]);
 			}
 			j++;
 		}
