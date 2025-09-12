@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:26:28 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/12 14:55:06 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/09/12 16:20:58 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_point
 t_map	*allocate_map(char *map_name);
 void	allocate_colors(t_map *map);
 void	*color_filler(t_map *map, char *map_name);
-void	draw_map(t_data *data, t_map *map, int x, int y);
+void	draw_map(t_data *data, t_map *map, int i, int j);
 void	draw_line(t_data *data, t_point p1, t_point p2, int color);
 void	ft_pixel_put(t_data *data, int x, int y, int color);
 void	*free_map(t_map *map, int len);
