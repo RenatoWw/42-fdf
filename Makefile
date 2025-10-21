@@ -1,9 +1,9 @@
 NAME = fdf
 CC = cc
 # compilação
-CFLAGS = -Wall -Werror -Wextra -Imlx -D BUFFER_SIZE=1000
+CFLAGS = -Wall -Werror -Wextra -Iincludes/mlx -D BUFFER_SIZE=1000 -Ofast
 # linkagem
-LFLAGS = -lmlx -lXext -lX11 -lm -Lincludes/libft/ -Lmlx -lft -lbsd
+LFLAGS = -lmlx -lXext -lX11 -lm -Lincludes/libft/ -Lincludes/mlx -lft -lbsd
 LIBFT = includes/libft/
 LIBFT_A = includes/libft/libft.a
 

@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:22:25 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/12 16:20:48 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/10/21 13:40:17 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ int	key_handler(int keycode, t_data *data)
 		exit(0);
 	}
 	return (0);
+}
+
+int	close_window(t_data *data)
+{
+	mlx_destroy_image(data->mlx, data->img);
+	mlx_destroy_window(data->mlx, data->window);
+	mlx_destroy_display(data->mlx);
+	if (data->mlx != NULL)
+		free(data->mlx);
+	exit(0);
 }
 
 void	fd_validate(int argc, int fd)
@@ -73,10 +83,12 @@ int	main(int argc, char *argv[])
 	if (!map)
 		return (1);
 	map_filler(map, fd);
+	determine_z_values(map);
 	color_filler(map, argv[1]);
 	init_mlx(&data);
 	draw_map(&data, map, -1, -1);
 	mlx_key_hook(data.window, &key_handler, &data);
+	mlx_hook(data.window, 17, 0, close_window, &data);
 	mlx_loop(data.mlx);
 	close(fd);
 	return (0);

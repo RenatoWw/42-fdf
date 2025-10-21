@@ -6,7 +6,7 @@
 /*   By: ranhaia- <ranhaia-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:42:11 by ranhaia-          #+#    #+#             */
-/*   Updated: 2025/09/12 16:21:31 by ranhaia-         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:09:14 by ranhaia-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ void	determine_z_values(t_map *map)
 
 void	isometric_projection(int *x, int *y, int z, t_map *map)
 {
-	int		tmp;
+	int		tmp_x;
 	float	final_z;
 
-	final_z = ((float)z - map->z_min) / (map->z_max - map->z_min);
+	final_z = (z - map->z_min) / (map->z_max - map->z_min);
 	if (map->z_max <= 0)
 		final_z = z;
 	else if (map->z_max <= 10 && map->z_max > 0)
 		final_z *= 150;
 	else
 		final_z *= 100;
-	tmp = *x;
-	*x = (tmp - *y) * cos(0.523599);
-	*y = (tmp + *y) * sin(0.523599) - final_z;
+	tmp_x = *x;
+	*x = (tmp_x - *y) * cos(0.523599);
+	*y = (tmp_x + *y) * sin(0.523599) - final_z;
 }
 
 void	initialize_points(t_point *p1, t_map *map, int i, int j)
@@ -58,7 +58,6 @@ void	initialize_points(t_point *p1, t_map *map, int i, int j)
 	int	offset_x;
 	int	offset_y;
 
-	determine_z_values(map);
 	zoom = WINDOW_WIDTH / map->width;
 	if ((WINDOW_WIDTH / map->width) > (WINDOW_HEIGHT / map->height))
 		zoom = WINDOW_HEIGHT / map->height;
