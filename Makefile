@@ -6,6 +6,8 @@ CFLAGS = -Wall -Werror -Wextra -Iincludes/mlx -D BUFFER_SIZE=1000 -Ofast
 LFLAGS = -lmlx -lXext -lX11 -lm -Lincludes/libft/ -Lincludes/mlx -lft -lbsd
 LIBFT = includes/libft/
 LIBFT_A = includes/libft/libft.a
+MLX = includes/mlx/
+MLX_A = includes/mlx/libmlx.a
 
 SRCS = fdf.c \
 	free.c \
@@ -24,8 +26,11 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT_A)
+$(NAME): $(OBJS) $(LIBFT_A) $(MLX_A)
 	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
+
+$(MLX_A):
+	$(MAKE) -s -C $(MLX)
 
 $(LIBFT_A):
 	$(MAKE) -s -C $(LIBFT)
